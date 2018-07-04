@@ -1,9 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const catsCtrl = require('./controllers/cats');
+const axios = require('axios');
 const port = 3005;
 
 const app = express();
+
+app.get('/api/useDarkSky', (req, res)=>{
+  
+  axios.get('darkskies.com/' + req.path)
+  .then(resp=>{
+    res.send(resp.data);
+  })
+})
+axios.get('http://google.com').then(resp=>{
+  console.log(resp);
+})
 
 
 
@@ -33,7 +45,7 @@ app.get('/api/calculate/add/:x/:y', (req, res) => {
 
 
 // Stray front end code
-// axios.post('/api/calculate/subtract', {x:5, y:3})
+// axios.get('/api/weather/84601', {x:5, y:3})
 
 app.post('/api/calculate/subtract', (req, res) => {
   console.log(req.body);
