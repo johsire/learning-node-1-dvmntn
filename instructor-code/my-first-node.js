@@ -28,7 +28,9 @@ app.get('/api/cats/:id', (req, res)=>{
 })
 
 app.post('/api/cats', (req, res)=>{
-  
+  // Optionally check for required properties on the body object
+  cats.push(req.body);
+  res.send('New Cat Added')
 })
 
 app.put('/api/cats/:id', (req, res)=>{

@@ -15,11 +15,11 @@ function addStuff (x, y){
 
 let cats = ['garfield', 'max'];
 
-app.get('/api/cats', (req, res)=>{
+app.get('/api/cats', (req, res) =>{
   return res.send(cats);
 })
 
-app.get('/api/cats/:id', (req, res)=>{
+app.get('/api/cats/:id', (req, res) =>{
   let index = req.params.id;
   if (cats[index]){
     return res.send(cats[index]);
@@ -27,11 +27,14 @@ app.get('/api/cats/:id', (req, res)=>{
   return res.status(404).send('No cat with that id');
 });
 
-app.post('/api/cats', (req, res)=>{
+app.post('/api/cats', (req, res) =>{
+  // Otionally check for require properties on the body object
+  cats.push(req.body);
+  res.send('New Cat Added');
   
 });
 
-app.put('/api/cats/:id', (req, res)=>{
+app.put('/api/cats/:id', (req, res) =>{
   
 });
 
@@ -62,6 +65,6 @@ app.post('/api/calculate/subtract', (req, res) => {
   res.send({total:total});
 });
 
-app.listen(port, ()=>{
+app.listen(port, () =>{
   console.log('Server running on port: ' + port);
 });
