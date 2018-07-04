@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const catsCtrl = require('./controllers/cats');
 const port = 3005;
 
 const app = express();
@@ -13,34 +14,13 @@ function addStuff (x, y){
   return x + y;
 }
 
-let cats = ['garfield', 'max'];
 
-app.get('/api/cats', (req, res) =>{
-  return res.send(cats);
-})
 
-app.get('/api/cats/:id', (req, res) =>{
-  let index = req.params.id;
-  if (cats[index]){
-    return res.send(cats[index]);
-  }
-  return res.status(404).send('No cat with that id');
-});
-
-app.post('/api/cats', (req, res) =>{
-  // Otionally check for require properties on the body object
-  cats.push(req.body);
-  res.send('New Cat Added');
-  
-});
-
-app.put('/api/cats/:id', (req, res) =>{
-  
-});
-
-app.delete('/api/cats/:id', (req, res)=>{
-  
-});
+app.get('/api/cats', catsCtrl.list)
+app.get('/api/cats/:id', catsCtrl.read)
+app.post('/api/cats', catsCtrl.create)
+app.put('/api/cats/:id', catsCtrl.update)
+app.delete('/api/cats/:id', catsCtrl.delete)
 
 // Params
 app.get('/api/calculate/add/:x/:y', (req, res) => {
@@ -65,6 +45,6 @@ app.post('/api/calculate/subtract', (req, res) => {
   res.send({total:total});
 });
 
-app.listen(port, () =>{
+app.listen(port, ()=>{
   console.log('Server running on port: ' + port);
 });
