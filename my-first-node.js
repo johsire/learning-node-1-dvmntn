@@ -21,7 +21,11 @@ app.get('/api/calculate/add/:x/:y', (req, res) => {
 // Body
 app.post('/api/calculate/subtract', (req, res) => {
   console.log(req.body);
-  res.send('Request received');
+  if (!req.body.x || !req.body.y){
+    res.send("You must provide a x and y property on the body");
+  }
+  let total = req.body.x - req.body.y;
+  res.send({total:total});
 });
 
 app.listen(port, ()=>{
